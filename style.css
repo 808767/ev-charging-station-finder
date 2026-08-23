@@ -1,0 +1,179 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+
+    background: linear-gradient(
+        135deg,
+        #0f172a,
+        #312e81,
+        #581c87
+    );
+
+    color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 650px;
+
+    text-align: center;
+
+    padding: 40px 30px;
+
+    background: rgba(255, 255, 255, 0.10);
+
+    border: 1px solid rgba(255, 255, 255, 0.20);
+
+    border-radius: 25px;
+
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+
+    backdrop-filter: blur(12px);
+}
+
+.logo {
+    font-size: 60px;
+    margin-bottom: 10px;
+}
+
+h1 {
+    font-size: 45px;
+    margin-bottom: 10px;
+}
+
+.tagline {
+    color: #dbeafe;
+    font-size: 17px;
+    line-height: 1.5;
+    margin-bottom: 30px;
+}
+
+.btn {
+    width: 100%;
+
+    padding: 16px;
+
+    margin: 10px 0;
+
+    border: none;
+
+    border-radius: 12px;
+
+    color: white;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.location {
+    background: linear-gradient(
+        90deg,
+        #06b6d4,
+        #2563eb
+    );
+}
+
+.stations {
+    background: linear-gradient(
+        90deg,
+        #8b5cf6,
+        #ec4899
+    );
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.30);
+}
+
+.card {
+    margin-top: 20px;
+
+    padding: 22px;
+
+    background: rgba(255, 255, 255, 0.12);
+
+    border-radius: 16px;
+
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.card h2 {
+    margin-bottom: 12px;
+}
+
+.card p {
+    margin: 8px 0;
+
+    color: #e0f2fe;
+}
+
+.card a {
+    display: inline-block;
+
+    margin-top: 15px;
+
+    padding: 12px 20px;
+
+    background: #22c55e;
+
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 10px;
+
+    font-weight: bold;
+}
+
+.card a:hover {
+    background: #16a34a;
+}
+
+footer {
+    position: fixed;
+
+    bottom: 12px;
+
+    font-size: 14px;
+
+    color: #cbd5e1;
+}
+
+@media (max-width: 600px) {
+
+    .container {
+        padding: 30px 20px;
+    }
+
+    h1 {
+        font-size: 34px;
+    }
+
+    .logo {
+        font-size: 50px;
+    }
+
+    .tagline {
+        font-size: 15px;
+    }
+}
