@@ -15,18 +15,16 @@ body {
     line-height: 1.6;
 }
 
-/* =========================
-   HEADER
-========================= */
+
+/* HEADER */
 
 .header {
     background: linear-gradient(135deg, #064e3b, #059669);
     color: white;
     padding: 20px 7%;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 4px 15px rgba(0,0,0,.15);
 }
 
 .logo-area {
@@ -36,37 +34,38 @@ body {
 }
 
 .logo {
-    font-size: 38px;
+    font-size: 40px;
 }
 
 .logo-area h1 {
     font-size: 25px;
-    margin: 0;
 }
 
 .logo-area p {
     font-size: 13px;
-    opacity: 0.9;
+    opacity: .9;
 }
 
 
-/* =========================
-   HERO SECTION
-========================= */
+/* HERO */
 
 .hero {
-    min-height: 560px;
+    min-height: 570px;
     background: linear-gradient(
         135deg,
         #064e3b,
         #047857,
         #10b981
     );
+
     color: white;
+
     display: flex;
     justify-content: center;
     align-items: center;
+
     text-align: center;
+
     padding: 60px 20px;
 }
 
@@ -76,7 +75,7 @@ body {
 }
 
 .hero-icon {
-    font-size: 70px;
+    font-size: 75px;
     margin-bottom: 15px;
 }
 
@@ -89,63 +88,70 @@ body {
 .hero p {
     font-size: 20px;
     max-width: 700px;
-    margin: 0 auto 30px;
-    opacity: 0.95;
+    margin: auto;
+    margin-bottom: 30px;
+    opacity: .95;
 }
 
 
-/* =========================
-   BUTTONS
-========================= */
+/* BUTTONS */
+
+button {
+    font-family: inherit;
+}
 
 .primary-btn,
 .secondary-btn,
 .map-btn,
-.cta-btn {
+.reach-btn,
+.cta-btn,
+.station-btn {
     border: none;
     cursor: pointer;
     text-decoration: none;
     display: inline-block;
-    transition: all 0.3s ease;
     font-weight: bold;
+    transition: .3s;
 }
+
 
 .primary-btn {
     background: white;
     color: #047857;
-    padding: 15px 30px;
+    padding: 15px 28px;
     border-radius: 30px;
     font-size: 17px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+    margin: 5px;
 }
 
 .primary-btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
 }
 
+
 .secondary-btn {
-    background: #047857;
+    background: #022c22;
     color: white;
-    padding: 13px 25px;
-    border-radius: 25px;
+    padding: 15px 28px;
+    border-radius: 30px;
+    font-size: 17px;
+    margin: 5px;
 }
 
 .secondary-btn:hover {
-    background: #065f46;
-    transform: translateY(-2px);
+    background: #111;
+    transform: translateY(-3px);
 }
+
 
 .status {
     margin-top: 20px;
-    font-weight: bold;
     min-height: 25px;
+    font-weight: bold;
 }
 
 
-/* =========================
-   COMMON SECTION
-========================= */
+/* COMMON SECTIONS */
 
 .location-section,
 .results-section,
@@ -153,7 +159,7 @@ body {
 .how-section,
 .about-section,
 .benefits-section,
-.cta-section {
+.journey-section {
     padding: 70px 7%;
 }
 
@@ -166,9 +172,7 @@ body {
 }
 
 
-/* =========================
-   LOCATION SECTION
-========================= */
+/* LOCATION */
 
 .location-section {
     background: white;
@@ -177,25 +181,30 @@ body {
 .coordinates {
     max-width: 900px;
     margin: auto;
+
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2,1fr);
+
     gap: 20px;
 }
 
 .coordinate-card {
     background: #f0fdf4;
     border: 1px solid #bbf7d0;
+
     padding: 25px;
     border-radius: 18px;
+
     display: flex;
     align-items: center;
     gap: 18px;
-    transition: 0.3s ease;
+
+    transition: .3s;
 }
 
 .coordinate-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 10px 25px rgba(0,0,0,.08);
 }
 
 .coordinate-icon {
@@ -204,12 +213,15 @@ body {
 
 .coordinate-card h3 {
     color: #064e3b;
-    margin-bottom: 5px;
 }
 
 .coordinate-card p {
     color: #555;
     word-break: break-word;
+}
+
+.location-buttons {
+    text-align: center;
 }
 
 .map-btn {
@@ -226,9 +238,135 @@ body {
 }
 
 
-/* =========================
-   RESULTS SECTION
-========================= */
+/* JOURNEY */
+
+.journey-section {
+    background: #ecfdf5;
+}
+
+.journey-card {
+    max-width: 950px;
+    margin: auto auto 30px;
+
+    background: white;
+
+    border-radius: 22px;
+
+    padding: 30px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 25px;
+
+    box-shadow: 0 5px 20px rgba(0,0,0,.08);
+}
+
+.journey-icon {
+    font-size: 60px;
+}
+
+.journey-content h2 {
+    color: #064e3b;
+    font-size: 30px;
+}
+
+.journey-content p {
+    color: #666;
+}
+
+
+.journey-form {
+    max-width: 1000px;
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+
+    gap: 20px;
+}
+
+.input-card {
+    background: white;
+
+    padding: 22px;
+
+    border-radius: 18px;
+
+    box-shadow: 0 4px 15px rgba(0,0,0,.07);
+}
+
+.input-card label {
+    display: block;
+
+    color: #064e3b;
+
+    font-weight: bold;
+
+    margin-bottom: 10px;
+}
+
+.input-card input {
+    width: 100%;
+
+    padding: 13px;
+
+    border: 2px solid #d1fae5;
+
+    border-radius: 10px;
+
+    font-size: 16px;
+
+    outline: none;
+}
+
+.input-card input:focus {
+    border-color: #10b981;
+}
+
+
+.reach-btn {
+    grid-column: 1 / -1;
+
+    background: #059669;
+
+    color: white;
+
+    padding: 15px;
+
+    border-radius: 30px;
+
+    font-size: 17px;
+}
+
+.reach-btn:hover {
+    background: #047857;
+    transform: translateY(-2px);
+}
+
+
+.reach-result {
+    max-width: 1000px;
+
+    margin: 25px auto 0;
+
+    padding: 20px;
+
+    background: white;
+
+    border-radius: 15px;
+
+    text-align: center;
+
+    font-weight: bold;
+
+    color: #064e3b;
+
+    box-shadow: 0 4px 15px rgba(0,0,0,.07);
+}
+
+
+/* STATIONS */
 
 .results-section {
     background: #f0fdf4;
@@ -237,26 +375,30 @@ body {
 .station-list {
     max-width: 950px;
     margin: auto;
+
     display: grid;
+
     gap: 20px;
 }
 
 .empty-message {
     background: white;
+
     border-radius: 20px;
+
     padding: 45px 20px;
+
     text-align: center;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+
+    box-shadow: 0 5px 20px rgba(0,0,0,.08);
 }
 
 .empty-icon {
     font-size: 55px;
-    margin-bottom: 15px;
 }
 
 .empty-message h3 {
     color: #064e3b;
-    margin-bottom: 8px;
 }
 
 .empty-message p {
@@ -264,54 +406,82 @@ body {
 }
 
 
-/* =========================
-   STATION CARD
-========================= */
-
 .station-card {
     background: white;
-    padding: 25px;
-    border-radius: 18px;
-    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
-    border-left: 5px solid #10b981;
-    transition: 0.3s ease;
-}
 
-.station-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+    padding: 25px;
+
+    border-radius: 18px;
+
+    box-shadow: 0 5px 18px rgba(0,0,0,.08);
+
+    border-left: 5px solid #10b981;
 }
 
 .station-card h3 {
     color: #064e3b;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
 .station-card p {
     color: #555;
-    margin: 6px 0;
+    margin: 7px 0;
 }
 
-.station-card a {
+
+.availability {
     display: inline-block;
-    margin-top: 12px;
-    background: #059669;
-    color: white;
-    padding: 10px 18px;
+
+    padding: 7px 13px;
+
     border-radius: 20px;
-    text-decoration: none;
+
+    background: #dcfce7;
+
+    color: #166534;
+
     font-weight: bold;
-    transition: 0.3s;
+
+    margin: 10px 0;
 }
 
-.station-card a:hover {
+
+.station-buttons {
+    margin-top: 15px;
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+}
+
+
+.station-btn {
+    background: #059669;
+
+    color: white;
+
+    padding: 10px 18px;
+
+    border-radius: 22px;
+}
+
+.station-btn:hover {
     background: #047857;
+    transform: translateY(-2px);
+}
+
+.backup-btn {
+    background: #dc2626;
+}
+
+.backup-btn:hover {
+    background: #b91c1c;
 }
 
 
-/* =========================
-   FEATURES SECTION
-========================= */
+/* FEATURES */
 
 .features-section {
     background: white;
@@ -319,34 +489,43 @@ body {
 
 .features-grid {
     max-width: 1100px;
+
     margin: auto;
+
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+
+    grid-template-columns: repeat(3,1fr);
+
     gap: 25px;
 }
 
 .feature-card {
     padding: 30px 22px;
+
     border-radius: 20px;
+
     background: #f8fffb;
+
     border: 1px solid #d1fae5;
+
     text-align: center;
-    transition: 0.3s ease;
+
+    transition: .3s;
 }
 
 .feature-card:hover {
     transform: translateY(-7px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+
+    box-shadow: 0 10px 25px rgba(0,0,0,.1);
 }
 
 .feature-icon {
     font-size: 45px;
-    margin-bottom: 15px;
 }
 
 .feature-card h3 {
     color: #064e3b;
-    margin-bottom: 10px;
+    margin: 10px 0;
 }
 
 .feature-card p {
@@ -354,52 +533,60 @@ body {
 }
 
 
-/* =========================
-   HOW IT WORKS
-========================= */
+/* HOW */
 
 .how-section {
     background: #ecfdf5;
 }
 
 .steps {
-    max-width: 950px;
+    max-width: 1000px;
+
     margin: auto;
+
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
+
+    grid-template-columns: repeat(4,1fr);
+
+    gap: 20px;
 }
 
 .step {
     background: white;
-    padding: 30px 20px;
-    text-align: center;
-    border-radius: 20px;
-    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.07);
-    transition: 0.3s ease;
-}
 
-.step:hover {
-    transform: translateY(-5px);
+    padding: 30px 20px;
+
+    text-align: center;
+
+    border-radius: 20px;
+
+    box-shadow: 0 5px 18px rgba(0,0,0,.07);
 }
 
 .step-number {
     width: 55px;
     height: 55px;
-    margin: 0 auto 15px;
+
+    margin: auto auto 15px;
+
     border-radius: 50%;
+
     background: #059669;
+
     color: white;
+
     display: flex;
+
     justify-content: center;
     align-items: center;
+
     font-size: 22px;
+
     font-weight: bold;
 }
 
 .step h3 {
     color: #064e3b;
-    margin-bottom: 8px;
 }
 
 .step p {
@@ -407,9 +594,7 @@ body {
 }
 
 
-/* =========================
-   ABOUT SECTION
-========================= */
+/* ABOUT */
 
 .about-section {
     background: white;
@@ -417,13 +602,21 @@ body {
 
 .about-card {
     max-width: 950px;
+
     margin: auto;
+
     background: #f0fdf4;
+
     border-radius: 22px;
+
     padding: 35px;
+
     display: flex;
+
     gap: 25px;
+
     align-items: flex-start;
+
     border: 1px solid #d1fae5;
 }
 
@@ -439,12 +632,11 @@ body {
 
 .about-content p {
     color: #555;
+    margin-bottom: 10px;
 }
 
 
-/* =========================
-   BENEFITS SECTION
-========================= */
+/* BENEFITS */
 
 .benefits-section {
     background: #f0fdf4;
@@ -452,25 +644,34 @@ body {
 
 .benefits-grid {
     max-width: 1000px;
+
     margin: auto;
+
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+
+    grid-template-columns: repeat(2,1fr);
+
     gap: 20px;
 }
 
 .benefit {
     background: white;
+
     padding: 20px;
+
     border-radius: 15px;
+
     display: flex;
+
     align-items: center;
+
     gap: 15px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-    transition: 0.3s ease;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,.06);
 }
 
-.benefit:hover {
-    transform: translateY(-3px);
+.benefit > div:first-child {
+    font-size: 35px;
 }
 
 .benefit h3 {
@@ -482,18 +683,24 @@ body {
 }
 
 
-/* =========================
-   CTA SECTION
-========================= */
+/* CTA */
 
 .cta-section {
+    padding: 75px 7%;
+
     background: linear-gradient(
         135deg,
         #064e3b,
         #059669
     );
+
     color: white;
+
     text-align: center;
+}
+
+.cta-icon {
+    font-size: 55px;
 }
 
 .cta-content {
@@ -501,113 +708,91 @@ body {
     margin: auto;
 }
 
-.cta-icon {
-    font-size: 55px;
-    margin-bottom: 15px;
-}
-
 .cta-content h2 {
     font-size: 38px;
-    margin-bottom: 10px;
 }
 
 .cta-content p {
-    margin-bottom: 25px;
     font-size: 18px;
+    margin: 10px 0 25px;
 }
 
 .cta-btn {
     background: white;
+
     color: #047857;
+
     padding: 14px 30px;
+
     border-radius: 30px;
 }
 
 .cta-btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
 
-/* =========================
-   FOOTER
-========================= */
+/* FOOTER */
 
 .footer {
     background: #022c22;
+
     color: white;
+
     text-align: center;
+
     padding: 35px 20px;
 }
 
 .footer-logo {
     font-size: 28px;
+
     font-weight: bold;
+
     margin-bottom: 8px;
 }
 
 .copyright {
-    opacity: 0.8;
-    font-size: 14px;
+    opacity: .8;
 }
 
 .team {
     margin-top: 10px;
+
     color: #a7f3d0;
 }
 
 
-/* =========================
-   EXTRA STYLING
-========================= */
+/* MOBILE */
 
-button {
-    font-family: inherit;
-}
+@media(max-width:850px) {
 
-a {
-    transition: 0.3s ease;
-}
+    .features-grid {
+        grid-template-columns: repeat(2,1fr);
+    }
 
-::selection {
-    background: #10b981;
-    color: white;
-}
-
-
-/* =========================
-   TABLET
-========================= */
-
-@media (max-width: 850px) {
-
-    .features-grid,
     .steps {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .journey-form {
+        grid-template-columns: 1fr;
+    }
+
+    .reach-btn {
+        grid-column: auto;
     }
 
     .hero h2 {
         font-size: 42px;
     }
-
-    .hero p {
-        font-size: 18px;
-    }
 }
 
 
-/* =========================
-   MOBILE
-========================= */
-
-@media (max-width: 600px) {
+@media(max-width:600px) {
 
     .header {
         padding: 15px 5%;
-    }
-
-    .logo-area {
-        gap: 8px;
     }
 
     .logo {
@@ -618,12 +803,8 @@ a {
         font-size: 20px;
     }
 
-    .logo-area p {
-        font-size: 11px;
-    }
-
     .hero {
-        min-height: 500px;
+        min-height: 520px;
         padding: 45px 18px;
     }
 
@@ -639,11 +820,6 @@ a {
         font-size: 16px;
     }
 
-    .primary-btn {
-        padding: 13px 22px;
-        font-size: 15px;
-    }
-
     .coordinates,
     .features-grid,
     .steps,
@@ -657,7 +833,7 @@ a {
     .how-section,
     .about-section,
     .benefits-section,
-    .cta-section {
+    .journey-section {
         padding: 50px 5%;
     }
 
@@ -666,55 +842,25 @@ a {
         font-size: 28px;
     }
 
-    .coordinate-card {
-        padding: 20px;
+    .journey-card {
+        flex-direction: column;
+        text-align: center;
     }
 
     .about-card {
         flex-direction: column;
         text-align: center;
-        padding: 25px;
     }
 
-    .about-icon {
-        margin: auto;
+    .station-buttons {
+        flex-direction: column;
+    }
+
+    .station-btn {
+        text-align: center;
     }
 
     .cta-content h2 {
         font-size: 30px;
-    }
-
-    .cta-content p {
-        font-size: 16px;
-    }
-
-    .footer {
-        padding: 28px 15px;
-    }
-}
-
-
-/* =========================
-   VERY SMALL MOBILE
-========================= */
-
-@media (max-width: 380px) {
-
-    .hero h2 {
-        font-size: 29px;
-    }
-
-    .hero p {
-        font-size: 15px;
-    }
-
-    .section-title,
-    .section-heading {
-        font-size: 25px;
-    }
-
-    .coordinate-card {
-        flex-direction: column;
-        text-align: center;
     }
 }
