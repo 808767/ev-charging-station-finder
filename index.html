@@ -1,210 +1,611 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>EV Charging Station Finder</title>
+    <meta name="viewport"
+          content="width=device-width,
+                   initial-scale=1.0,
+                   maximum-scale=1.0,
+                   user-scalable=no">
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
+    <meta name="description"
+          content="EV Charging Station Finder - Find nearby electric vehicle charging stations">
 
-        body {
-            background: #f1f8f4;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    <meta name="theme-color" content="#00c853">
 
-        .container {
-            width: 90%;
-            max-width: 500px;
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            text-align: center;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
-        }
+    <title>⚡ Spark EV Charging Station Finder</title>
 
-        h1 {
-            color: #16833a;
-            margin-bottom: 10px;
-        }
-
-        .car {
-            font-size: 60px;
-            margin: 15px;
-        }
-
-        p {
-            color: #555;
-            margin-bottom: 20px;
-        }
-
-        button {
-            width: 100%;
-            padding: 14px;
-            margin: 8px 0;
-            border: none;
-            border-radius: 10px;
-            background: #16833a;
-            color: white;
-            font-size: 17px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #0d662c;
-        }
-
-        #result {
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 10px;
-            background: #f5f5f5;
-            color: #333;
-            min-height: 50px;
-        }
-
-        .footer {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #888;
-        }
-    </style>
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
+
 
 <body>
 
-    <div class="container">
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
 
-        <div class="car">🔋🚗</div>
+    <header class="header">
 
-        <h1>EV Charging Station Finder</h1>
+        <div class="logo-area">
 
-        <p>Find EV charging stations near your location.</p>
+            <div class="logo">
+                ⚡
+            </div>
 
-        <button onclick="findLocation()">
-            📍 Find My Location
-        </button>
+            <div>
+                <h1>SPARK EV</h1>
+                <p>Charging Station Finder</p>
+            </div>
 
-        <button onclick="findStations()">
-            ⚡ Find Charging Stations
-        </button>
-
-        <div id="result">
-            Your location will appear here.
         </div>
 
-        <div class="footer">
+    </header>
+
+
+    <!-- =====================================================
+         HERO SECTION
+    ====================================================== -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-icon">
+                🔋
+            </div>
+
+            <h2>
+                Find Your Nearest
+                <span>EV Charging Station</span>
+            </h2>
+
+            <p>
+                Quickly discover electric vehicle charging
+                stations near your current location.
+            </p>
+
+
+            <!-- Location Button -->
+
+            <button
+                id="locationBtn"
+                class="primary-btn">
+
+                📍 Use My Current Location
+
+            </button>
+
+
+            <!-- Find Station Button -->
+
+            <button
+                id="findBtn"
+                class="secondary-btn">
+
+                🔎 Find Nearby EV Stations
+
+            </button>
+
+
+            <!-- Status -->
+
+            <div
+                id="locationStatus"
+                class="status">
+
+                Your location has not been detected yet.
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         LOCATION SECTION
+    ====================================================== -->
+
+    <section class="location-section">
+
+        <div class="section-title">
+
+            <span>📍</span>
+
+            <div>
+                <h2>Your Current Location</h2>
+                <p>Location information</p>
+            </div>
+
+        </div>
+
+
+        <div class="coordinates">
+
+            <div class="coordinate-card">
+
+                <div class="coordinate-icon">
+                    🌐
+                </div>
+
+                <div>
+                    <p>Latitude</p>
+
+                    <strong id="latitude">
+                        --
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <div class="coordinate-card">
+
+                <div class="coordinate-icon">
+                    🌐
+                </div>
+
+                <div>
+                    <p>Longitude</p>
+
+                    <strong id="longitude">
+                        --
+                    </strong>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Google Maps -->
+
+        <a
+            id="mapLink"
+            href="#"
+            target="_blank"
+            class="map-btn">
+
+            🗺️ Open Location in Google Maps
+
+        </a>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         SEARCH RESULT SECTION
+    ====================================================== -->
+
+    <section
+        id="results"
+        class="results-section">
+
+
+        <div class="section-title">
+
+            <span>⚡</span>
+
+            <div>
+                <h2>Nearby Charging Stations</h2>
+
+                <p>
+                    Available EV charging locations
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- Station List -->
+
+        <div
+            id="stationList"
+            class="station-list">
+
+
+            <!-- Default Message -->
+
+            <div class="empty-message">
+
+                <div class="empty-icon">
+                    🔌
+                </div>
+
+                <h3>
+                    No Stations Found Yet
+                </h3>
+
+                <p>
+                    Use your current location and
+                    search for nearby EV charging stations.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         FEATURES SECTION
+    ====================================================== -->
+
+    <section class="features-section">
+
+        <div class="section-heading">
+
+            <h2>
+                Why Use SPARK EV?
+            </h2>
+
+            <p>
+                Simple, fast and useful for every EV user.
+            </p>
+
+        </div>
+
+
+        <div class="features-grid">
+
+
+            <!-- Feature 1 -->
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    📍
+                </div>
+
+                <h3>
+                    Location Based
+                </h3>
+
+                <p>
+                    Find charging stations
+                    according to your current location.
+                </p>
+
+            </div>
+
+
+
+            <!-- Feature 2 -->
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    ⚡
+                </div>
+
+                <h3>
+                    Fast Search
+                </h3>
+
+                <p>
+                    Quickly search for nearby
+                    EV charging points.
+                </p>
+
+            </div>
+
+
+
+            <!-- Feature 3 -->
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🗺️
+                </div>
+
+                <h3>
+                    Google Maps
+                </h3>
+
+                <p>
+                    Open the charging station
+                    location directly in Google Maps.
+                </p>
+
+            </div>
+
+
+
+            <!-- Feature 4 -->
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🌱
+                </div>
+
+                <h3>
+                    Eco Friendly
+                </h3>
+
+                <p>
+                    Supporting clean transportation
+                    and a greener future.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         HOW IT WORKS
+    ====================================================== -->
+
+    <section class="how-section">
+
+        <div class="section-heading">
+
+            <h2>
+                How It Works
+            </h2>
+
+            <p>
+                Find an EV charging station in three simple steps.
+            </p>
+
+        </div>
+
+
+        <div class="steps">
+
+
+            <!-- Step 1 -->
+
+            <div class="step">
+
+                <div class="step-number">
+                    1
+                </div>
+
+                <h3>
+                    Allow Location
+                </h3>
+
+                <p>
+                    Click on "Use My Current Location"
+                    and allow location permission.
+                </p>
+
+            </div>
+
+
+
+            <!-- Step 2 -->
+
+            <div class="step">
+
+                <div class="step-number">
+                    2
+                </div>
+
+                <h3>
+                    Find Stations
+                </h3>
+
+                <p>
+                    Click on "Find Nearby EV Stations"
+                    to search for charging points.
+                </p>
+
+            </div>
+
+
+
+            <!-- Step 3 -->
+
+            <div class="step">
+
+                <div class="step-number">
+                    3
+                </div>
+
+                <h3>
+                    Navigate
+                </h3>
+
+                <p>
+                    Select a station and open its
+                    location in Google Maps.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         PROJECT INFORMATION
+    ====================================================== -->
+
+    <section class="about-section">
+
+        <div class="about-card">
+
+            <div class="about-icon">
+                🚗⚡
+            </div>
+
+            <div class="about-content">
+
+                <h2>
+                    About Our Project
+                </h2>
+
+                <p>
+                    SPARK EV Charging Station Finder is a
+                    location-based web application designed
+                    to help electric vehicle users find nearby
+                    charging stations easily.
+                </p>
+
+                <p>
+                    The project uses the user's geographical
+                    location to provide a simple way to search
+                    for EV charging facilities and navigate
+                    to them using Google Maps.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         BENEFITS
+    ====================================================== -->
+
+    <section class="benefits-section">
+
+        <div class="section-heading">
+
+            <h2>
+                Benefits for EV Users
+            </h2>
+
+        </div>
+
+
+        <div class="benefits-grid">
+
+            <div class="benefit">
+                <span>✓</span>
+                <p>Save time while searching for charging stations.</p>
+            </div>
+
+            <div class="benefit">
+                <span>✓</span>
+                <p>Find charging points near your location.</p>
+            </div>
+
+            <div class="benefit">
+                <span>✓</span>
+                <p>Easy navigation through Google Maps.</p>
+            </div>
+
+            <div class="benefit">
+                <span>✓</span>
+                <p>Promotes electric vehicle adoption.</p>
+            </div>
+
+            <div class="benefit">
+                <span>✓</span>
+                <p>Simple and mobile-friendly interface.</p>
+            </div>
+
+            <div class="benefit">
+                <span>✓</span>
+                <p>Supports a cleaner and greener future.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         CALL TO ACTION
+    ====================================================== -->
+
+    <section class="cta-section">
+
+        <div class="cta-content">
+
+            <div class="cta-icon">
+                ⚡
+            </div>
+
+            <h2>
+                Ready to Charge?
+            </h2>
+
+            <p>
+                Find the nearest EV charging station
+                and continue your journey.
+            </p>
+
+            <button
+                onclick="document.getElementById('locationBtn').click()"
+                class="cta-btn">
+
+                📍 Start Finding Stations
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="footer">
+
+        <div class="footer-logo">
+
+            ⚡ SPARK EV
+
+        </div>
+
+
+        <p>
             EV Charging Station Finder
-        </div>
-
-    </div>
-
-    <script>
-
-        const result = document.getElementById("result");
-
-        function findLocation() {
-
-            if (!navigator.geolocation) {
-
-                result.innerHTML =
-                    "❌ Your browser does not support location.";
-
-                return;
-            }
-
-            result.innerHTML =
-                "📍 Getting your location...";
-
-            navigator.geolocation.getCurrentPosition(
-
-                function(position) {
-
-                    const latitude =
-                        position.coords.latitude;
-
-                    const longitude =
-                        position.coords.longitude;
-
-                    result.innerHTML =
-                        "✅ Location found!<br><br>" +
-                        "Latitude: " + latitude +
-                        "<br>" +
-                        "Longitude: " + longitude;
-
-                },
-
-                function(error) {
-
-                    result.innerHTML =
-                        "❌ Unable to get your location.<br>" +
-                        "Please allow location permission.";
-
-                }
-
-            );
-        }
+        </p>
 
 
-        function findStations() {
+        <p class="copyright">
 
-            if (!navigator.geolocation) {
+            © 2026 SPARK EV Charging Station Finder
 
-                result.innerHTML =
-                    "❌ Location is not supported.";
+        </p>
 
-                return;
-            }
 
-            result.innerHTML =
-                "📍 Finding nearby charging stations...";
+        <p class="team">
 
-            navigator.geolocation.getCurrentPosition(
+            Made with ❤️ by Ashwini & Team
 
-                function(position) {
+        </p>
 
-                    const latitude =
-                        position.coords.latitude;
+    </footer>
 
-                    const longitude =
-                        position.coords.longitude;
 
-                    const mapURL =
-                        "https://www.google.com/maps/search/EV+Charging+Station/@"
-                        + latitude + "," + longitude + ",14z";
 
-                    result.innerHTML =
-                        "⚡ Charging stations near you:<br><br>" +
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
 
-                        '<a href="' + mapURL +
-                        '" target="_blank">' +
+    <script src="script.js"></script>
 
-                        '<button>🗺️ Open Nearby Charging Stations</button>' +
-
-                        '</a>';
-
-                },
-
-                function(error) {
-
-                    result.innerHTML =
-                        "❌ Please allow location permission.";
-
-                }
-
-            );
-        }
-
-    </script>
 
 </body>
+
 </html>
