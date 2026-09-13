@@ -1,65 +1,51 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    /* =========================================
-       GET HTML ELEMENTS
-    ========================================= */
-
     const locationBtn = document.getElementById("locationBtn");
     const findBtn = document.getElementById("findBtn");
 
-    const locationStatus = document.getElementById("locationStatus");
+    const reachBtn = document.getElementById("reachBtn");
+    const ctaBtn = document.getElementById("ctaBtn");
 
-    const latitudeElement = document.getElementById("latitude");
-    const longitudeElement = document.getElementById("longitude");
+    const locationStatus =
+        document.getElementById("locationStatus");
 
-    const mapLink = document.getElementById("mapLink");
+    const latitudeElement =
+        document.getElementById("latitude");
 
-    const stationList = document.getElementById("stationList");
+    const longitudeElement =
+        document.getElementById("longitude");
 
+    const mapLink =
+        document.getElementById("mapLink");
 
-    /* =========================================
-       CURRENT LOCATION VARIABLES
-    ========================================= */
+    const stationList =
+        document.getElementById("stationList");
+
+    const reachResult =
+        document.getElementById("reachResult");
+
 
     let currentLatitude = null;
     let currentLongitude = null;
 
 
-    /* =========================================
-       CHECK GEOLOCATION
-    ========================================= */
-
-    function checkLocationSupport() {
-
-        if (!navigator.geolocation) {
-
-            if (locationStatus) {
-                locationStatus.textContent =
-                    "❌ Your browser does not support location services.";
-            }
-
-            return false;
-        }
-
-        return true;
-    }
-
-
-    /* =========================================
-       GET CURRENT LOCATION
-    ========================================= */
+    /* =========================
+       LOCATION
+    ========================= */
 
     function getCurrentLocation(callback) {
 
-        if (!checkLocationSupport()) {
+        if (!navigator.geolocation) {
+
+            locationStatus.textContent =
+                "❌ Your browser does not support location services.";
+
             return;
         }
 
 
-        if (locationStatus) {
-            locationStatus.textContent =
-                "📍 Getting your current location...";
-        }
+        locationStatus.textContent =
+            "📍 Getting your current location...";
 
 
         navigator.geolocation.getCurrentPosition(
@@ -73,57 +59,34 @@ document.addEventListener("DOMContentLoaded", function () {
                     position.coords.longitude;
 
 
-                /* UPDATE LATITUDE */
+                latitudeElement.textContent =
+                    currentLatitude.toFixed(6);
 
-                if (latitudeElement) {
-
-                    latitudeElement.textContent =
-                        currentLatitude.toFixed(6);
-                }
+                longitudeElement.textContent =
+                    currentLongitude.toFixed(6);
 
 
-                /* UPDATE LONGITUDE */
-
-                if (longitudeElement) {
-
-                    longitudeElement.textContent =
-                        currentLongitude.toFixed(6);
-                }
-
-
-                /* GOOGLE MAPS LINK */
-
-                const googleMapsLocation =
+                const locationURL =
                     "https://www.google.com/maps/search/?api=1&query=" +
                     currentLatitude +
                     "," +
                     currentLongitude;
 
 
-                if (mapLink) {
+                mapLink.href = locationURL;
 
-                    mapLink.href =
-                        googleMapsLocation;
-
-                    mapLink.style.display =
-                        "inline-block";
-                }
+                mapLink.style.display =
+                    "inline-block";
 
 
-                /* STATUS */
+                locationStatus.textContent =
+                    "✅ Location detected successfully!";
 
-                if (locationStatus) {
-
-                    locationStatus.textContent =
-                        "✅ Location detected successfully!";
-                }
-
-
-                /* RUN CALLBACK */
 
                 if (typeof callback === "function") {
 
                     callback();
+
                 }
 
             },
@@ -131,58 +94,32 @@ document.addEventListener("DOMContentLoaded", function () {
 
             function (error) {
 
-                let message =
-                    "❌ Unable to get your location.";
-
-
                 if (error.code === 1) {
 
-                    message =
+                    locationStatus.textContent =
                         "❌ Location permission denied. Please allow location access.";
+
                 }
 
                 else if (error.code === 2) {
 
-                    message =
+                    locationStatus.textContent =
                         "❌ Location unavailable. Please try again.";
+
                 }
 
                 else if (error.code === 3) {
 
-                    message =
+                    locationStatus.textContent =
                         "❌ Location request timed out. Please try again.";
+
                 }
 
-
-                if (locationStatus) {
+                else {
 
                     locationStatus.textContent =
-                        message;
-                }
+                        "❌ Unable to get your location.";
 
-
-                if (stationList) {
-
-                    stationList.innerHTML = `
-
-                        <div class="empty-message">
-
-                            <div class="empty-icon">
-                                ⚠️
-                            </div>
-
-                            <h3>
-                                Location Access Required
-                            </h3>
-
-                            <p>
-                                Please allow location permission
-                                and try again.
-                            </p>
-
-                        </div>
-
-                    `;
                 }
 
             },
@@ -195,109 +132,80 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
         );
+
     }
 
 
-    /* =========================================
-       USE MY CURRENT LOCATION BUTTON
-    ========================================= */
+    /* =========================
+       LOCATION BUTTON
+    ========================= */
 
-    if (locationBtn) {
+    locationBtn.addEventListener(
+        "click",
+        function () {
 
-        locationBtn.addEventListener(
-            "click",
-            function () {
+            getCurrentLocation();
 
-                getCurrentLocation();
+        }
+    );
+
+
+    /* =========================
+       FIND STATIONS
+    ========================= */
+
+    findBtn.addEventListener(
+        "click",
+        function () {
+
+            stationList.innerHTML = `
+
+                <div class="empty-message">
+
+                    <div class="empty-icon">⚡</div>
+
+                    <h3>
+                        Finding Nearby EV Stations...
+                    </h3>
+
+                    <p>
+                        Please wait...
+                    </p>
+
+                </div>
+            `;
+
+
+            if (
+                currentLatitude !== null &&
+                currentLongitude !== null
+            ) {
+
+                showStations();
 
             }
-        );
 
-    }
-
-
-    /* =========================================
-       FIND NEARBY EV STATIONS
-    ========================================= */
-
-    if (findBtn) {
-
-        findBtn.addEventListener(
-            "click",
-            function () {
-
-                /* SHOW LOADING */
-
-                if (stationList) {
-
-                    stationList.innerHTML = `
-
-                        <div class="empty-message">
-
-                            <div class="empty-icon">
-                                ⚡
-                            </div>
-
-                            <h3>
-                                Finding Nearby EV Stations...
-                            </h3>
-
-                            <p>
-                                Please wait while we find charging stations near you.
-                            </p>
-
-                        </div>
-
-                    `;
-
-                }
-
-
-                /* IF LOCATION ALREADY AVAILABLE */
-
-                if (
-                    currentLatitude !== null &&
-                    currentLongitude !== null
-                ) {
-
-                    showNearbyStations();
-
-                    return;
-                }
-
-
-                /* OTHERWISE GET LOCATION FIRST */
+            else {
 
                 getCurrentLocation(
                     function () {
 
-                        showNearbyStations();
+                        showStations();
 
                     }
                 );
 
             }
-        );
 
-    }
-
-
-    /* =========================================
-       SHOW NEARBY STATIONS
-    ========================================= */
-
-    function showNearbyStations() {
-
-        if (
-            currentLatitude === null ||
-            currentLongitude === null
-        ) {
-
-            return;
         }
+    );
 
 
-        /* GOOGLE MAPS SEARCH */
+    /* =========================
+       SHOW STATIONS
+    ========================= */
+
+    function showStations() {
 
         const googleMapsURL =
             "https://www.google.com/maps/search/EV+charging+stations/@" +
@@ -307,78 +215,312 @@ document.addEventListener("DOMContentLoaded", function () {
             ",14z";
 
 
-        /* DISPLAY RESULT */
+        const navigateURL =
+            "https://www.google.com/maps/dir/?api=1&origin=" +
+            currentLatitude +
+            "," +
+            currentLongitude +
+            "&destination=EV+charging+station";
 
-        if (stationList) {
 
-            stationList.innerHTML = `
+        stationList.innerHTML = `
 
-                <div class="station-card">
+            <div class="station-card">
 
-                    <h3>
-                        ⚡ EV Charging Stations Near You
-                    </h3>
+                <h3>
+                    ⚡ EV Charging Station
+                </h3>
 
-                    <p>
-                        📍 Your current location has been detected.
-                    </p>
+                <p>
+                    📍 Nearby charging station search
+                </p>
 
-                    <p>
-                        Latitude:
-                        <strong>
-                            ${currentLatitude.toFixed(6)}
-                        </strong>
-                    </p>
+                <p>
+                    📏 Distance:
+                    <strong>
+                        Search distance on Google Maps
+                    </strong>
+                </p>
 
-                    <p>
-                        Longitude:
-                        <strong>
-                            ${currentLongitude.toFixed(6)}
-                        </strong>
-                    </p>
+                <p>
+                    🔌 Charger:
+                    <strong>
+                        EV Charging Point
+                    </strong>
+                </p>
 
-                    <p>
-                        🔋 Find charging stations around your location
-                        using Google Maps.
-                    </p>
+                <p>
+                    ⚡ Charging Power:
+                    <strong>
+                        Check station details
+                    </strong>
+                </p>
+
+                <span class="availability">
+                    🟢 Check Charging Availability
+                </span>
+
+                <p>
+                    🔋 Before travelling, check the
+                    available chargers on the station page.
+                </p>
+
+
+                <div class="station-buttons">
 
                     <a
+                        class="station-btn"
                         href="${googleMapsURL}"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        🔎 View Nearby EV Charging Stations
+                        🔎 View Nearby Stations
+                    </a>
+
+
+                    <a
+                        class="station-btn"
+                        href="${navigateURL}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        🚗 Navigate
+                    </a>
+
+
+                    <a
+                        class="station-btn backup-btn"
+                        href="${googleMapsURL}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        🆘 Find Backup Station
                     </a>
 
                 </div>
 
-            `;
+            </div>
+
+        `;
+
+    }
+
+
+    /* =========================
+       CAN I REACH?
+    ========================= */
+
+    reachBtn.addEventListener(
+        "click",
+        function () {
+
+            const battery =
+                parseFloat(
+                    document.getElementById("battery").value
+                );
+
+            const fullRange =
+                parseFloat(
+                    document.getElementById("fullRange").value
+                );
+
+            const distance =
+                parseFloat(
+                    document.getElementById("distance").value
+                );
+
+
+            if (
+                isNaN(battery) ||
+                isNaN(fullRange) ||
+                isNaN(distance)
+            ) {
+
+                reachResult.innerHTML = `
+                    ⚠️ Please enter all EV details.
+                `;
+
+                return;
+            }
+
+
+            if (battery < 0 || battery > 100) {
+
+                reachResult.innerHTML = `
+                    ⚠️ Battery percentage must be between 0 and 100.
+                `;
+
+                return;
+            }
+
+
+            const availableRange =
+                (battery / 100) * fullRange;
+
+
+            const remainingRange =
+                availableRange - distance;
+
+
+            if (availableRange >= distance) {
+
+                reachResult.innerHTML = `
+
+                    <div style="font-size:40px;">
+                        🟢
+                    </div>
+
+                    <h3>
+                        YES! Your EV can reach the station.
+                    </h3>
+
+                    <p>
+                        🔋 Available Range:
+                        <strong>
+                            ${availableRange.toFixed(1)} km
+                        </strong>
+                    </p>
+
+                    <p>
+                        📍 Station Distance:
+                        <strong>
+                            ${distance.toFixed(1)} km
+                        </strong>
+                    </p>
+
+                    <p>
+                        ✅ Remaining estimated range:
+                        <strong>
+                            ${remainingRange.toFixed(1)} km
+                        </strong>
+                    </p>
+
+                `;
+
+            }
+
+            else {
+
+                reachResult.innerHTML = `
+
+                    <div style="font-size:40px;">
+                        🔴
+                    </div>
+
+                    <h3>
+                        NO! Your EV may not reach the station.
+                    </h3>
+
+                    <p>
+                        🔋 Available Range:
+                        <strong>
+                            ${availableRange.toFixed(1)} km
+                        </strong>
+                    </p>
+
+                    <p>
+                        📍 Station Distance:
+                        <strong>
+                            ${distance.toFixed(1)} km
+                        </strong>
+                    </p>
+
+                    <p>
+                        ⚠️ You need approximately
+                        <strong>
+                            ${(distance - availableRange).toFixed(1)} km
+                        </strong>
+                        more range.
+                    </p>
+
+                    <br>
+
+                    <button
+                        onclick="findBackupStation()"
+                        class="station-btn backup-btn"
+                    >
+                        🆘 Find Backup Station
+                    </button>
+
+                `;
+
+            }
 
         }
+    );
+
+
+    /* =========================
+       BACKUP STATION
+    ========================= */
+
+    window.findBackupStation =
+        function () {
+
+            if (
+                currentLatitude === null ||
+                currentLongitude === null
+            ) {
+
+                getCurrentLocation(
+                    function () {
+
+                        openBackup();
+
+                    }
+                );
+
+            }
+
+            else {
+
+                openBackup();
+
+            }
+
+        };
+
+
+    function openBackup() {
+
+        const backupURL =
+            "https://www.google.com/maps/search/EV+charging+stations/@" +
+            currentLatitude +
+            "," +
+            currentLongitude +
+            ",12z";
+
+
+        window.open(
+            backupURL,
+            "_blank"
+        );
 
     }
 
 
-    /* =========================================
-       MAP LINK DEFAULT STATE
-    ========================================= */
+    /* =========================
+       CTA
+    ========================= */
 
-    if (mapLink) {
+    ctaBtn.addEventListener(
+        "click",
+        function () {
 
-        mapLink.style.display =
-            "none";
-    }
+            document
+                .querySelector(".journey-section")
+                .scrollIntoView({
+                    behavior: "smooth"
+                });
+
+        }
+    );
 
 
-    /* =========================================
-       INITIAL LOCATION STATUS
-    ========================================= */
+    /* =========================
+       INITIAL SETTINGS
+    ========================= */
 
-    if (locationStatus) {
-
-        locationStatus.textContent =
-            "📍 Click the button to detect your location.";
-
-    }
+    mapLink.style.display = "none";
 
 });
